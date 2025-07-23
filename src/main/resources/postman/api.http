@@ -1,0 +1,8 @@
+### Get joblist;
+
+GET http://localhost:8080/job/list
+Accept: application/json
+
+###
+
+GET http://localhost:8080/job/list/asdasd
