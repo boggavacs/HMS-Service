@@ -34,7 +34,7 @@ public class JobListController {
     }
 
     @PostMapping("/add")
-    public String addJobListing(@RequestBody String entity) {
+    public JobEntity addJobListing(@RequestBody JobEntity entity) {
         return jobService.addJob(entity);
     }
 

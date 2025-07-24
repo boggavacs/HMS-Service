@@ -1,5 +1,6 @@
 package com.hms.experience.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import com.hms.experience.entity.JobEntity;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 @Repository
 public class JobRepository implements JobDao {
@@ -26,25 +28,24 @@ public class JobRepository implements JobDao {
         return getJobs;
     }
 
-    // @Override
-    // public JobEntity insertRecord() {
-    // // company,
-    // // title,
-    // // category_id,
-    // // location,
-    // // short_description,
-    // // long_description,
-    // // instructions,
-    // // status,
-    // // job_listing_type,
-    // // created_at,
-    // // updated_at,
-    // // expires_at
-    // JobEntity list = new JobEntity();
-    // list.setCompany("HMS");
-    // // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method
-    // 'insertRecord'");
-    // }
+    @Override
+    @Transactional
+    public JobEntity insertRecord(JobEntity jlist) {
+        JobEntity jobList = new JobEntity();
+        jobList.setTitle(jlist.getTitle());
+        jobList.setCompany(jlist.getCompany());
+        jobList.setLocaion(jlist.getLocaion());
+        jobList.setShort_description(jlist.getShort_description());
+        jobList.setLong_description(jlist.getLong_description());
+        jobList.setInstructions(jlist.getInstructions());
+        jobList.setStatus(jlist.getStatus());
+        jobList.setJob_listing_type(jlist.getJob_listing_type());
+        jobList.setCreated_at(LocalDateTime.now());
+        jobList.setUpdated_at(LocalDateTime.now());
+        jobList.setExpires_at(LocalDateTime.now());
+        jobList.setCategory_id(jlist.getCategory_id());
+        entityManager.persist(jobList);
+        return jobList;
+    }
 
 }

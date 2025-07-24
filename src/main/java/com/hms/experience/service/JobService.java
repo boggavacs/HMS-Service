@@ -22,19 +22,7 @@ public class JobService implements job {
     // private ArrayList<JobList> loadJobListData() {
 
     // list = new JobList(
-    // 3, // int id
-    // "Company", // String company
-    // "Title", // String title
-    // 123L, // Long category_id (example value, replace as needed)
-    // "location", // String location (fixed typo)
-    // "short_description", // String short_description
-    // "long_description", // String long_description
-    // "instructions", // String instructions
-    // "status", // String status
-    // "job_listing_type", // String job_listing_type
-    // LocalDateTime.now(), // LocalDateTime created_at
-    // LocalDateTime.now(), // LocalDateTime updated_at
-    // LocalDateTime.now() // LocalDateTime deleted_at
+
     // );
     // ArrayList<JobList> joblist = new ArrayList<>();
     // joblist.add(list);
@@ -70,9 +58,8 @@ public class JobService implements job {
 
     }
 
-    public String addJob(String entity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addJob'");
+    public JobEntity addJob(JobEntity entity) {
+        return jobDao.insertRecord(entity);
     }
 
 }

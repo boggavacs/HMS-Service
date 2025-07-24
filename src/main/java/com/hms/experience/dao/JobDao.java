@@ -8,6 +8,6 @@ public interface JobDao {
 
     public List<JobEntity> getJobList();
 
-    // public JobEntity insertRecord();
+    public JobEntity insertRecord(JobEntity entity);
 
 }
