@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "job_listings")
+@Table(name = "job_listing", schema = "CB")
 public class JobEntity {
 
     @Id
@@ -54,12 +54,16 @@ public class JobEntity {
     @Column(name = "expires_at")
     private LocalDateTime expires_at;
 
+    @Column(name = "user_id")
+    private int user_id;
+
     public JobEntity() {
     }
 
-    public JobEntity(int id, String company, String title, String long_description, String location,
-            String short_description, String category_id, String instructions, String status,
-            String job_listing_type, LocalDateTime created_at, LocalDateTime updated_at, LocalDateTime expires_at) {
+    public JobEntity(int id, String company, String title, String category_id, String location,
+            String short_description, String long_description, String instructions, String status,
+            String job_listing_type, LocalDateTime created_at, LocalDateTime updated_at, LocalDateTime expires_at,
+            int user_id) {
         this.id = id;
         this.company = company;
         this.title = title;
@@ -73,6 +77,7 @@ public class JobEntity {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.expires_at = expires_at;
+        this.user_id = user_id;
     }
 
     public int getId() {
@@ -179,13 +184,21 @@ public class JobEntity {
         this.expires_at = expires_at;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
-        return "JobListing [id=" + id + ", company=" + company + ", title=" + title + ", category_id=" + category_id
-                + ", locaion=" + location + ", short_description=" + short_description + ", long_description="
+        return "JobEntity [id=" + id + ", company=" + company + ", title=" + title + ", category_id=" + category_id
+                + ", location=" + location + ", short_description=" + short_description + ", long_description="
                 + long_description + ", instructions=" + instructions + ", status=" + status + ", job_listing_type="
                 + job_listing_type + ", created_at=" + created_at + ", updated_at=" + updated_at + ", expires_at="
-                + expires_at + "]";
+                + expires_at + ", user_id=" + user_id + "]";
     }
 
 }

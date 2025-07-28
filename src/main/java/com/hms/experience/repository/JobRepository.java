@@ -44,6 +44,7 @@ public class JobRepository implements JobDao {
         jobList.setUpdated_at(LocalDateTime.now());
         jobList.setExpires_at(LocalDateTime.now());
         jobList.setCategory_id(jlist.getCategory_id());
+        jobList.setUser_id(jlist.getUser_id());
         entityManager.persist(jobList);
         return jobList;
     }
