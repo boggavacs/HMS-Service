@@ -1,17 +1,20 @@
 package com.hms.experience.dao;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.hms.experience.entity.UserEntity;
 
 public interface UserDAO {
 
-    public UserEntity getUsers();
+    public List<UserEntity> getUsers();
 
     public UserEntity getUserById(String id);
 
-    public UserEntity getUsreByName(String userName);
+    public Optional<UserEntity> getUsreByName(String userName);
 
     public UserEntity addUser(UserEntity userObject);
 
-    public void updateUser(UserEntity userObject);
+    public UserEntity updateUser(UserEntity userObject);
 
 }

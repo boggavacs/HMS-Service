@@ -1,6 +1,8 @@
 package com.hms.experience.repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +10,7 @@ import com.hms.experience.dao.UserDAO;
 import com.hms.experience.entity.UserEntity;
 
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.TypedQuery;
 
 @Repository
 public class UsreRepository implements UserDAO {
@@ -20,46 +22,37 @@ public class UsreRepository implements UserDAO {
     }
 
     @Override
-    public UserEntity getUsers() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsers'");
+    public List<UserEntity> getUsers() {
+        TypedQuery<UserEntity> query = entityManager.createQuery("SELECT u FROM UserEntity u", UserEntity.class);
+        return query.getResultList();
     }
 
     @Override
     public UserEntity getUserById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserById'");
+        return entityManager.find(UserEntity.class, id);
     }
 
     @Override
-    public UserEntity getUsreByName(String userName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsreByName'");
+    public Optional<UserEntity> getUsreByName(String userName) {
+        TypedQuery<UserEntity> getUserByName = entityManager.createQuery(
+                "SELECT u FROM UserEntity u WHERE u.userName = :userName", UserEntity.class);
+        getUserByName.setParameter("userName", userName);
+        return Optional.of(getUserByName.getSingleResult());
     }
 
     @Override
-    @Transactional
     public UserEntity addUser(UserEntity user) {
-        UserEntity addUser = new UserEntity();
-        addUser.setUserName(user.getUserName());
-        addUser.setEmail(user.getEmail());
-        addUser.setFirstName(user.getFirstName());
-        addUser.setLastName(user.getLastName());
-        addUser.setActive(user.active());
-        addUser.setPassword(user.getPassword());
-        addUser.setAvatarUrl(user.getAvatarUrl());
-        addUser.setRole(user.getRole());
-        addUser.setCreatedAt(LocalDateTime.now());
-        addUser.setUpdatedAt(LocalDateTime.now());
-        addUser.setExpireAt(LocalDateTime.now());
-        entityManager.persist(addUser);
-        return addUser;
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
+        user.setExpireAt(LocalDateTime.now());
+        entityManager.persist(user);
+        return user;
     }
 
     @Override
-    public void updateUser(UserEntity userObject) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
+    public UserEntity updateUser(UserEntity userObject) {
+        userObject.setUpdatedAt(LocalDateTime.now());
+        return entityManager.merge(userObject);
     }
 
 }
